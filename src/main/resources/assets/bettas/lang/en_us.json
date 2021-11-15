@@ -1,0 +1,13 @@
+{
+  "item.bettas.betta_fish": "Betta Fish",
+  "item.bettas.blackwater_bottle": "Blackwater Bottle",
+  "item.bettas.betta_fish_spawn_egg": "Betta Fish Spawn Egg",
+
+  "block.bettas.moss_ball": "Moss Ball",
+  "block.bettas.moss_ball_block": "Moss Ball Block",
+
+  "entity.bettas.betta_fish": "Betta Fish",
+
+  "text.autoconfig.bettas.title": "Bettas Config",
+  "text.autoconfig.bettas.option.debugMode": "Debug Mode"
+}

@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "bettas",
+  "version": "${version}",
+
+  "name": "Bettas",
+  "description": "A small mod containing a new fish: the betta!",
+  "authors": [
+    "ZestyBlaze",
+    "TeamDraco"
+  ],
+  "contact": {
+    "homepage": "",
+    "sources": "https://github.com/ZestyBlaze/Bettas-Fabricated",
+    "issues": "https://github.com/ZestyBlaze/Bettas-Fabricated"
+  },
+
+  "license": "MIT License",
+  "icon": "assets/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.zestyblaze.bettas.Bettas"
+    ],
+    "modmenu": [
+      "net.zestyblaze.bettas.integration.ModMenuIntegration"
+    ]
+  },
+
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "fabric": "*",
+    "minecraft": "1.17.x",
+    "java": ">=16"
+  }
+}
