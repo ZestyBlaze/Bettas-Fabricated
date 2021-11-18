@@ -1,7 +1,5 @@
 package net.zestyblaze.bettas.item;
 
-import com.mojang.datafixers.Typed;
-import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FluidFillable;

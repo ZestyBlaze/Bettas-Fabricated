@@ -2,10 +2,7 @@ package net.zestyblaze.bettas;
 
 import net.fabricmc.api.ModInitializer;
 import net.zestyblaze.bettas.config.BettasModConfig;
-import net.zestyblaze.bettas.registry.BettaBlocksInit;
-import net.zestyblaze.bettas.registry.BettaConfigInit;
-import net.zestyblaze.bettas.registry.BettaEntityInit;
-import net.zestyblaze.bettas.registry.BettaItemsInit;
+import net.zestyblaze.bettas.registry.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,6 +20,8 @@ public class Bettas implements ModInitializer {
 		BettaBlocksInit.registerBlocks();
 		BettaItemsInit.registerItems();
 		BettaEntityInit.registerEntities();
+		BettaWorldInit.registerSpawns();
+		BettaWorldInit.registerFeatures();
 
 		if(BettasModConfig.get().debugMode) {
 			Bettas.LOGGER.info("Bettas: Registry - Mod Fully Loaded");

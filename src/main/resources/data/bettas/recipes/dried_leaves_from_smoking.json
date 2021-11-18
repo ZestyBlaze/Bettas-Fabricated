@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "tag": "minecraft:leaves"
+  },
+  "result": "bettas:dried_leaves",
+  "experience": 0.35,
+  "cookingtime": 100
+}

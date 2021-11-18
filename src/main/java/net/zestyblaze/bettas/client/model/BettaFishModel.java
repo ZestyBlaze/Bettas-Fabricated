@@ -20,7 +20,7 @@ public class BettaFishModel extends EntityModel<BettaFishEntity> {
 
     public BettaFishModel(ModelPart root) {
         this.body = root.getChild("body");
-        this.finLeftBottom = this.body.getChild("finBottomLeft");
+        this.finLeftBottom = this.body.getChild("finLeftBottom");
         this.tail = this.body.getChild("tail");
         this.finRight = this.body.getChild("finRight");
         this.finTop = this.body.getChild("finTop");

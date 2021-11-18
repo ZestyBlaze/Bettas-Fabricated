@@ -9,6 +9,8 @@ import net.zestyblaze.bettas.registry.BettaClientInit;
 public class BettaClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        BettaClientInit.registerClient();
+        BettaClientInit.registerClientEntityRenders();
+        BettaClientInit.registerClientEntityModels();
+        BettaClientInit.registerClientRenderOverlays();
     }
 }

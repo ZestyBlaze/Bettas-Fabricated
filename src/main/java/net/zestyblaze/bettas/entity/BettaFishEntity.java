@@ -178,7 +178,7 @@ public class BettaFishEntity extends FishEntity implements Bucketable {
 
     @Override
     public ItemStack getBucketItem() {
-        return null;
+        return new ItemStack(BettaItemsInit.BETTA_FISH_BUCKET);
     }
 
     @Override
@@ -214,6 +214,6 @@ public class BettaFishEntity extends FishEntity implements Bucketable {
             this.world.addParticle(ParticleTypes.HEART, this.getParticleX(1.0d), this.getRandomBodyY() + 0.5d, this.getParticleZ(1.0d), d0, d1, d2);
             return ActionResult.PASS;
         }
-        return interactMob(player, hand);
+        return super.interactMob(player, hand);
     }
 }

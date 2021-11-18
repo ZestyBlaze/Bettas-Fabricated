@@ -4,7 +4,6 @@ import net.minecraft.block.*;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;
@@ -13,35 +12,31 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
-import net.zestyblaze.bettas.registry.BettaBlocksInit;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
-import java.util.Random;
 
 @SuppressWarnings("deprecation")
-public class MossBallBlock extends PlantBlock implements Waterloggable, Fertilizable {
-    private static final IntProperty BALLS = Properties.PICKLES;
+public class DriedLeavesBlock extends PlantBlock implements Waterloggable {
+    private static final IntProperty LEAVES = Properties.PICKLES;
     private static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
-    protected static final VoxelShape ONE_SHAPE = Block.createCuboidShape(0, 0, 0, 16, 7, 16);
-    protected static final VoxelShape TWO_SHAPE = Block.createCuboidShape(0, 0, 0, 16, 7, 16);
-    protected static final VoxelShape THREE_SHAPE = Block.createCuboidShape(0, 0, 0, 16, 7, 16);
-    protected static final VoxelShape FOUR_SHAPE = Block.createCuboidShape(0, 0, 0, 16, 8, 16);
+    protected static final VoxelShape ONE_SHAPE = Block.createCuboidShape(0, 0, 0, 16, 2, 16);
+    protected static final VoxelShape TWO_SHAPE = Block.createCuboidShape(0, 0, 0, 16, 3, 16);
+    protected static final VoxelShape THREE_SHAPE = Block.createCuboidShape(0, 0, 0, 16, 5, 16);
 
-    public MossBallBlock(Settings settings) {
+    public DriedLeavesBlock(Settings settings) {
         super(settings);
-        this.setDefaultState(this.getDefaultState().with(BALLS, 1).with(WATERLOGGED, true));
+        this.setDefaultState(this.getDefaultState().with(LEAVES, 1).with(WATERLOGGED, true));
     }
 
     @Override
     @Nullable
     public BlockState getPlacementState(ItemPlacementContext ctx) {
-        BlockState blockState = ctx.getWorld().getBlockState(ctx.getBlockPos());
-        if(blockState.isOf(this)) {
-            return blockState.with(BALLS, Math.min(4, blockState.get(BALLS) + 1));
+        BlockState state = ctx.getWorld().getBlockState(ctx.getBlockPos());
+        if(state.isOf(this)) {
+            return state.with(LEAVES, Math.min(3, state.get(LEAVES) + 1));
         } else {
             FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
             boolean flag = fluidState.getFluid() == Fluids.WATER;
@@ -49,8 +44,9 @@ public class MossBallBlock extends PlantBlock implements Waterloggable, Fertiliz
         }
     }
 
-    private static boolean isInBadEnvironment(BlockState state) {
-        return !state.get(WATERLOGGED);
+    @Override
+    public boolean hasSidedTransparency(BlockState state) {
+        return true;
     }
 
     @Override
@@ -78,16 +74,15 @@ public class MossBallBlock extends PlantBlock implements Waterloggable, Fertiliz
 
     @Override
     public boolean canReplace(BlockState state, ItemPlacementContext context) {
-        return context.getStack().getItem() == this.asItem() && state.get(BALLS) < 4 || super.canReplace(state, context);
+        return context.getStack().getItem() == this.asItem() && state.get(LEAVES) < 4 || super.canReplace(state, context);
     }
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext context) {
-        return switch (state.get(BALLS)) {
+        return switch (state.get(LEAVES)) {
             default -> ONE_SHAPE;
             case 2 -> TWO_SHAPE;
             case 3 -> THREE_SHAPE;
-            case 4 -> FOUR_SHAPE;
         };
     }
 
@@ -98,41 +93,6 @@ public class MossBallBlock extends PlantBlock implements Waterloggable, Fertiliz
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(BALLS, WATERLOGGED);
-    }
-
-    @Override
-    public boolean isFertilizable(BlockView world, BlockPos pos, BlockState state, boolean isClient) {
-        return true;
-    }
-
-    @Override
-    public boolean canGrow(World world, Random random, BlockPos pos, BlockState state) {
-        return true;
-    }
-
-    @Override
-    public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
-        if(!isInBadEnvironment(state) && world.getBlockState(pos.down()).getBlock() == BettaBlocksInit.MOSS_BALL_BLOCK) {
-            int j = 1;
-            int i1 = pos.getX() - 2;
-            int j1 = 0;
-
-            for(int k1 = 0; k1 < 5; ++k1) {
-                for(int l1 = 0; l1 < j; ++l1) {
-                    int i2 = 2 + pos.getY() - 1;
-
-                    for(int j2 = i2 - 2; j2 < i2; ++j2) {
-                        BlockPos blockPos = new BlockPos(i1 + k1, j2, pos.getZ() - j1 + l1);
-                        if(state.getBlock() == BettaBlocksInit.MOSS_BALL_BLOCK) {
-                            world.setBlockState(blockPos, BettaBlocksInit.MOSS_BALL_BLOCK.getDefaultState().with(BALLS, random.nextInt(4) + 1), 3);
-                        }
-                    }
-                }
-            }
-
-            ++j1;
-        }
-        world.setBlockState(pos, state.with(BALLS, 4), 2);
+        builder.add(LEAVES, WATERLOGGED);
     }
 }

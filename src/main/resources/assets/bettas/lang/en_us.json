@@ -1,13 +1,18 @@
 {
   "item.bettas.betta_fish": "Betta Fish",
+  "item.bettas.betta_fish_bucket": "Bucket of Betta Fish",
   "item.bettas.blackwater_bottle": "Blackwater Bottle",
   "item.bettas.betta_fish_spawn_egg": "Betta Fish Spawn Egg",
 
   "block.bettas.moss_ball": "Moss Ball",
   "block.bettas.moss_ball_block": "Moss Ball Block",
+  "block.bettas.dried_leaves": "Dried Leaves",
 
   "entity.bettas.betta_fish": "Betta Fish",
 
   "text.autoconfig.bettas.title": "Bettas Config",
-  "text.autoconfig.bettas.option.debugMode": "Debug Mode"
+  "text.autoconfig.bettas.option.debugMode": "Debug Mode",
+  "text.autoconfig.bettas.option.spawnWeight": "Spawn Weight",
+  "text.autoconfig.bettas.option.minGroupSize": "Min Group Size",
+  "text.autoconfig.bettas.option.maxGroupSize": "Max Group Size"
 }

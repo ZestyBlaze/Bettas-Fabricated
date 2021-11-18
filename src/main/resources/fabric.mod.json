@@ -7,10 +7,10 @@
   "description": "A small mod containing a new fish: the betta!",
   "authors": [
     "ZestyBlaze",
-    "TeamDraco"
+    "Coda1552"
   ],
   "contact": {
-    "homepage": "",
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/bettas-fabric",
     "sources": "https://github.com/ZestyBlaze/Bettas-Fabricated",
     "issues": "https://github.com/ZestyBlaze/Bettas-Fabricated"
   },
@@ -22,6 +22,9 @@
   "entrypoints": {
     "main": [
       "net.zestyblaze.bettas.Bettas"
+    ],
+    "client": [
+      "net.zestyblaze.bettas.client.BettaClient"
     ],
     "modmenu": [
       "net.zestyblaze.bettas.integration.ModMenuIntegration"
