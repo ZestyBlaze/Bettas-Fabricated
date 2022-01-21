@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Bettas implements ModInitializer {
+
 	public static final String MODID = "bettas";
 	public static final String MODNAME = "Bettas";
 

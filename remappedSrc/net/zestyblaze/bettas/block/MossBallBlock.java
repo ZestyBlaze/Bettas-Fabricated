@@ -16,7 +16,6 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
-import net.minecraft.world.tick.OrderedTick;
 import net.zestyblaze.bettas.registry.BettaBlocksInit;
 import org.jetbrains.annotations.Nullable;
 
@@ -71,7 +70,7 @@ public class MossBallBlock extends PlantBlock implements Waterloggable, Fertiliz
             return Blocks.AIR.getDefaultState();
         } else {
             if(state.get(WATERLOGGED)) {
-                world.getFluidTickScheduler().scheduleTick(OrderedTick.create(Fluids.WATER, pos));
+                world.getFluidTickScheduler().schedule(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
             }
             return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
         }

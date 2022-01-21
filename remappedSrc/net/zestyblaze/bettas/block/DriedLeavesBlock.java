@@ -14,7 +14,6 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
-import net.minecraft.world.tick.OrderedTick;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
@@ -67,7 +66,7 @@ public class DriedLeavesBlock extends PlantBlock implements Waterloggable {
             return Blocks.AIR.getDefaultState();
         } else {
             if(state.get(WATERLOGGED)) {
-                world.getFluidTickScheduler().scheduleTick(OrderedTick.create(Fluids.WATER, pos));
+                world.getFluidTickScheduler().schedule(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
             }
             return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
         }
