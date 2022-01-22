@@ -35,14 +35,12 @@ public class BettasBucketItem extends BucketItem {
     private final Supplier<EntityType<?>> entityType;
     private final boolean hasTooltip;
     private final Fluid fluid;
-    private final Item item;
 
     public BettasBucketItem(Supplier<EntityType<?>> entityType, Fluid fluid, Item item, boolean hasTooltip, Settings settings) {
         super(fluid, settings);
         this.entityType = entityType;
         this.fluid = fluid;
         this.hasTooltip = hasTooltip;
-        this.item = item;
     }
 
     @Override
