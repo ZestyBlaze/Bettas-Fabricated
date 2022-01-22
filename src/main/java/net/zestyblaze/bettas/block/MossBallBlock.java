@@ -25,33 +25,33 @@ import java.util.Random;
 
 @SuppressWarnings("deprecation")
 public class MossBallBlock extends PlantBlock implements Waterloggable, Fertilizable {
-    private static final IntProperty BALLS = Properties.PICKLES;
-    private static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
     protected static final VoxelShape ONE_SHAPE = Block.createCuboidShape(0, 0, 0, 16, 7, 16);
     protected static final VoxelShape TWO_SHAPE = Block.createCuboidShape(0, 0, 0, 16, 7, 16);
     protected static final VoxelShape THREE_SHAPE = Block.createCuboidShape(0, 0, 0, 16, 7, 16);
     protected static final VoxelShape FOUR_SHAPE = Block.createCuboidShape(0, 0, 0, 16, 8, 16);
+    private static final IntProperty BALLS = Properties.PICKLES;
+    private static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
     public MossBallBlock(Settings settings) {
         super(settings);
         this.setDefaultState(this.getDefaultState().with(BALLS, 1).with(WATERLOGGED, true));
     }
 
+    private static boolean isInBadEnvironment(BlockState state) {
+        return !state.get(WATERLOGGED);
+    }
+
     @Override
     @Nullable
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         BlockState blockState = ctx.getWorld().getBlockState(ctx.getBlockPos());
-        if(blockState.isOf(this)) {
+        if (blockState.isOf(this)) {
             return blockState.with(BALLS, Math.min(4, blockState.get(BALLS) + 1));
         } else {
             FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
             boolean flag = fluidState.getFluid() == Fluids.WATER;
             return Objects.requireNonNull(super.getPlacementState(ctx)).with(WATERLOGGED, flag);
         }
-    }
-
-    private static boolean isInBadEnvironment(BlockState state) {
-        return !state.get(WATERLOGGED);
     }
 
     @Override
@@ -67,10 +67,10 @@ public class MossBallBlock extends PlantBlock implements Waterloggable, Fertiliz
 
     @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        if(!state.canPlaceAt(world, pos)) {
+        if (!state.canPlaceAt(world, pos)) {
             return Blocks.AIR.getDefaultState();
         } else {
-            if(state.get(WATERLOGGED)) {
+            if (state.get(WATERLOGGED)) {
                 world.getFluidTickScheduler().scheduleTick(OrderedTick.create(Fluids.WATER, pos));
             }
             return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
@@ -114,18 +114,18 @@ public class MossBallBlock extends PlantBlock implements Waterloggable, Fertiliz
 
     @Override
     public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
-        if(!isInBadEnvironment(state) && world.getBlockState(pos.down()).getBlock() == BettaBlocksInit.MOSS_BALL_BLOCK) {
+        if (!isInBadEnvironment(state) && world.getBlockState(pos.down()).getBlock() == BettaBlocksInit.MOSS_BALL_BLOCK) {
             int j = 1;
             int i1 = pos.getX() - 2;
             int j1 = 0;
 
-            for(int k1 = 0; k1 < 5; ++k1) {
-                for(int l1 = 0; l1 < j; ++l1) {
+            for (int k1 = 0; k1 < 5; ++k1) {
+                for (int l1 = 0; l1 < j; ++l1) {
                     int i2 = 2 + pos.getY() - 1;
 
-                    for(int j2 = i2 - 2; j2 < i2; ++j2) {
+                    for (int j2 = i2 - 2; j2 < i2; ++j2) {
                         BlockPos blockPos = new BlockPos(i1 + k1, j2, pos.getZ() - j1 + l1);
-                        if(state.getBlock() == BettaBlocksInit.MOSS_BALL_BLOCK) {
+                        if (state.getBlock() == BettaBlocksInit.MOSS_BALL_BLOCK) {
                             world.setBlockState(blockPos, BettaBlocksInit.MOSS_BALL_BLOCK.getDefaultState().with(BALLS, random.nextInt(4) + 1), 3);
                         }
                     }

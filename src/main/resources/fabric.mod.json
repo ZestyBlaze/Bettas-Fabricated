@@ -2,7 +2,6 @@
   "schemaVersion": 1,
   "id": "bettas",
   "version": "${version}",
-
   "name": "Bettas",
   "description": "A small mod containing a new fish: the betta!",
   "authors": [
@@ -14,10 +13,8 @@
     "sources": "https://github.com/ZestyBlaze/Bettas-Fabricated",
     "issues": "https://github.com/ZestyBlaze/Bettas-Fabricated"
   },
-
   "license": "MIT License",
   "icon": "assets/icon.png",
-
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -30,7 +27,6 @@
       "net.zestyblaze.bettas.integration.ModMenuIntegration"
     ]
   },
-
   "depends": {
     "fabricloader": ">=0.12.12",
     "fabric": "*",

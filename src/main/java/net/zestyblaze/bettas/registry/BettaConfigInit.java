@@ -9,7 +9,7 @@ public class BettaConfigInit {
     public static void registerConfig() {
         AutoConfig.register(BettasModConfig.class, GsonConfigSerializer::new);
 
-        if(BettasModConfig.get().debugMode) {
+        if (BettasModConfig.get().debugMode) {
             Bettas.LOGGER.info("Bettas: Registry - Config Registered");
         }
     }

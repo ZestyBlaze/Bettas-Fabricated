@@ -28,7 +28,7 @@ public class BettaItemsInit {
         Registry.register(Registry.ITEM, new Identifier(Bettas.MODID, "moss_ball_block"), new BlockItem(BettaBlocksInit.MOSS_BALL_BLOCK, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
         Registry.register(Registry.ITEM, new Identifier(Bettas.MODID, "dried_leaves"), new BlockItem(BettaBlocksInit.DRIED_LEAVES, new FabricItemSettings().group(ItemGroup.DECORATIONS)));
 
-        if(BettasModConfig.get().debugMode) {
+        if (BettasModConfig.get().debugMode) {
             Bettas.LOGGER.info("Bettas: Registry - Items Registered");
         }
     }

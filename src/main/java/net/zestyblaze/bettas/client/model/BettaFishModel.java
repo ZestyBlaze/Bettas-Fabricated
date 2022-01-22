@@ -52,7 +52,7 @@ public class BettaFishModel extends EntityModel<BettaFishEntity> {
         this.finLeft.roll = 0.7853982f;
 
         float f = 1.0f;
-        if(!entity.isSubmergedInWater()) {
+        if (!entity.isSubmergedInWater()) {
             f = 1.5f;
         }
         this.tail.yaw = -f * 0.45f * MathHelper.sin(0.6f * animationProgress);

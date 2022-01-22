@@ -17,7 +17,7 @@ public class BettaClientInit {
     public static void registerClientEntityRenders() {
         EntityRendererRegistry.register(BettaEntityInit.BETTA_FISH, BettaFishRenderer::new);
 
-        if(BettasModConfig.get().debugMode) {
+        if (BettasModConfig.get().debugMode) {
             Bettas.LOGGER.info("Bettas: ClientRegistry - Renders Registered");
         }
     }
@@ -25,7 +25,7 @@ public class BettaClientInit {
     public static void registerClientEntityModels() {
         EntityModelLayerRegistry.registerModelLayer(BETTA_FISH_MODEL, BettaFishModel::getTexturedModelData);
 
-        if(BettasModConfig.get().debugMode) {
+        if (BettasModConfig.get().debugMode) {
             Bettas.LOGGER.info("Bettas: ClientRegistry - Models Registered");
         }
     }
@@ -33,7 +33,7 @@ public class BettaClientInit {
     public static void registerClientRenderOverlays() {
         BlockRenderLayerMap.INSTANCE.putBlock(BettaBlocksInit.DRIED_LEAVES, RenderLayer.getCutout());
 
-        if(BettasModConfig.get().debugMode) {
+        if (BettasModConfig.get().debugMode) {
             Bettas.LOGGER.info("Bettas: ClientRegistry - Overlays Registered");
         }
     }

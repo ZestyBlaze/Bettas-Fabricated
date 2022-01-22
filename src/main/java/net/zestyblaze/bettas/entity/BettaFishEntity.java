@@ -40,6 +40,10 @@ public class BettaFishEntity extends FishEntity implements Bucketable {
         super(entityType, world);
     }
 
+    public static DefaultAttributeContainer.Builder createAttributes() {
+        return HostileEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 6.0d).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0d);
+    }
+
     @Override
     protected void initGoals() {
         this.goalSelector.add(0, new MeleeAttackGoal(this, 2.0d, true));
@@ -64,17 +68,13 @@ public class BettaFishEntity extends FishEntity implements Bucketable {
         this.dataTracker.startTracking(FROM_BUCKET, false);
     }
 
-    public static DefaultAttributeContainer.Builder createAttributes() {
-        return HostileEntity.createMobAttributes().add(EntityAttributes.GENERIC_MAX_HEALTH, 6.0d).add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1.0d);
-    }
-
     @Override
     public boolean damage(DamageSource source, float amount) {
-        if(this.isInvulnerableTo(source)) {
+        if (this.isInvulnerableTo(source)) {
             return false;
         } else {
             Entity entity = source.getAttacker();
-            if(entity != null && !(entity instanceof PlayerEntity) && !(entity instanceof ArrowEntity)) {
+            if (entity != null && !(entity instanceof PlayerEntity) && !(entity instanceof ArrowEntity)) {
                 amount = (amount + 1.0f) / 2.0f;
             }
             return super.damage(source, amount);
@@ -83,8 +83,8 @@ public class BettaFishEntity extends FishEntity implements Bucketable {
 
     @Override
     public boolean tryAttack(Entity target) {
-        boolean flag = target.damage(DamageSource.mob(this), (float)((int)this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE)));
-        if(flag) {
+        boolean flag = target.damage(DamageSource.mob(this), (float) ((int) this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE)));
+        if (flag) {
             this.applyDamageEffects(this, target);
         }
         return flag;
@@ -111,7 +111,7 @@ public class BettaFishEntity extends FishEntity implements Bucketable {
     @Override
     public void tick() {
         super.tick();
-        if(isMossBallNearby()) {
+        if (isMossBallNearby()) {
             this.setTarget(null);
         }
     }
@@ -120,12 +120,12 @@ public class BettaFishEntity extends FishEntity implements Bucketable {
         BlockPos blockPos = this.getBlockPos();
         BlockPos.Mutable blockPos$mutable = new BlockPos.Mutable();
 
-        for(int i = 0; i < 8; ++i) {
-            for(int j = 0; j < 8; ++j) {
+        for (int i = 0; i < 8; ++i) {
+            for (int j = 0; j < 8; ++j) {
                 for (int k = 0; k <= j; k = k > 0 ? -k : 1 - k) {
                     for (int l = k < j && k > -j ? j : 0; l <= j; l = l > 0 ? -l : 1 - l) {
                         blockPos$mutable.set(blockPos, k, i, j);
-                        if(this.world.getBlockState(blockPos$mutable).isOf(BettaBlocksInit.MOSS_BALL_BLOCK)) {
+                        if (this.world.getBlockState(blockPos$mutable).isOf(BettaBlocksInit.MOSS_BALL_BLOCK)) {
                             return true;
                         }
                     }
@@ -152,17 +152,17 @@ public class BettaFishEntity extends FishEntity implements Bucketable {
     @Override
     @Nullable
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, EntityData entityData, NbtCompound entityNbt) {
-        if(entityNbt == null) {
+        if (entityNbt == null) {
             double chance = getRandom().nextDouble();
-            if(chance <= 0.45) setVariant(getRandom().nextInt(MAX_VARIANTS));
-            else if(chance <= 0.7) setVariant(24);
+            if (chance <= 0.45) setVariant(getRandom().nextInt(MAX_VARIANTS));
+            else if (chance <= 0.7) setVariant(24);
             else setVariant(100);
         } else {
-            if(entityNbt.contains("Variant", 3)) {
+            if (entityNbt.contains("Variant", 3)) {
                 this.setVariant(entityNbt.getInt("Variant"));
                 this.targetSelector.add(1, new ActiveTargetGoal<>(this, BettaFishEntity.class, false));
             }
-            if(entityNbt.contains("Health", 99)) {
+            if (entityNbt.contains("Health", 99)) {
                 this.setHealth(entityNbt.getFloat("Health"));
             }
         }
@@ -203,8 +203,8 @@ public class BettaFishEntity extends FishEntity implements Bucketable {
         ItemStack stack = player.getStackInHand(hand);
         float maxHealth = this.getMaxHealth();
         float health = this.getHealth();
-        if(stack.getItem() == BettaItemsInit.BLACKWATER_BOTTLE && health < maxHealth) {
-            if(!player.isCreative()) {
+        if (stack.getItem() == BettaItemsInit.BLACKWATER_BOTTLE && health < maxHealth) {
+            if (!player.isCreative()) {
                 stack.decrement(1);
             }
             heal(3);
