@@ -25,9 +25,9 @@ public class MossBallFeature extends Feature<CountConfig> {
         Random random = context.getRandom();
         StructureWorldAccess structureWorldAccess = context.getWorld();
         BlockPos blockPos = context.getOrigin();
-        int j = context.getConfig().getCount().get(random);
+        int j = ((CountConfig)context.getConfig()).getCount().get(random);
 
-        for (int k = 0; k < j; ++k) {
+        for(int k = 0; k < j; ++k) {
             int l = random.nextInt(8) - random.nextInt(8);
             int m = random.nextInt(8) - random.nextInt(8);
             int n = structureWorldAccess.getTopY(Heightmap.Type.OCEAN_FLOOR, blockPos.getX() + l, blockPos.getZ() + m);
