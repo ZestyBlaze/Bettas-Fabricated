@@ -21,11 +21,11 @@ import java.util.Objects;
 
 @SuppressWarnings("deprecation")
 public class DriedLeavesBlock extends PlantBlock implements Waterloggable {
-    private static final IntProperty LEAVES = Properties.PICKLES;
-    private static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
     protected static final VoxelShape ONE_SHAPE = Block.createCuboidShape(0, 0, 0, 16, 2, 16);
     protected static final VoxelShape TWO_SHAPE = Block.createCuboidShape(0, 0, 0, 16, 3, 16);
     protected static final VoxelShape THREE_SHAPE = Block.createCuboidShape(0, 0, 0, 16, 5, 16);
+    private static final IntProperty LEAVES = Properties.PICKLES;
+    private static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
 
     public DriedLeavesBlock(Settings settings) {
         super(settings);
@@ -36,7 +36,7 @@ public class DriedLeavesBlock extends PlantBlock implements Waterloggable {
     @Nullable
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         BlockState state = ctx.getWorld().getBlockState(ctx.getBlockPos());
-        if(state.isOf(this)) {
+        if (state.isOf(this)) {
             return state.with(LEAVES, Math.min(3, state.get(LEAVES) + 1));
         } else {
             FluidState fluidState = ctx.getWorld().getFluidState(ctx.getBlockPos());
@@ -63,10 +63,10 @@ public class DriedLeavesBlock extends PlantBlock implements Waterloggable {
 
     @Override
     public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
-        if(!state.canPlaceAt(world, pos)) {
+        if (!state.canPlaceAt(world, pos)) {
             return Blocks.AIR.getDefaultState();
         } else {
-            if(state.get(WATERLOGGED)) {
+            if (state.get(WATERLOGGED)) {
                 world.getFluidTickScheduler().scheduleTick(OrderedTick.create(Fluids.WATER, pos));
             }
             return super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);

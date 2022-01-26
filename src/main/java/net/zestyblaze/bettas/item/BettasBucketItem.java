@@ -35,35 +35,33 @@ public class BettasBucketItem extends BucketItem {
     private final Supplier<EntityType<?>> entityType;
     private final boolean hasTooltip;
     private final Fluid fluid;
-    private final Item item;
 
     public BettasBucketItem(Supplier<EntityType<?>> entityType, Fluid fluid, Item item, boolean hasTooltip, Settings settings) {
         super(fluid, settings);
         this.entityType = entityType;
         this.fluid = fluid;
         this.hasTooltip = hasTooltip;
-        this.item = item;
     }
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
         BlockHitResult rayTraceResult = raycast(world, user, RaycastContext.FluidHandling.NONE);
-        if(rayTraceResult.getType() == HitResult.Type.MISS) {
+        if (rayTraceResult.getType() == HitResult.Type.MISS) {
             return TypedActionResult.pass(itemStack);
-        } else if(rayTraceResult.getType() != HitResult.Type.BLOCK) {
+        } else if (rayTraceResult.getType() != HitResult.Type.BLOCK) {
             return TypedActionResult.pass(itemStack);
         } else {
             BlockPos blockPos = rayTraceResult.getBlockPos();
             Direction direction = rayTraceResult.getSide();
             BlockPos blockPos1 = blockPos.offset(direction);
-            if(user.canPlaceOn(blockPos1, direction, itemStack)) {
+            if (user.canPlaceOn(blockPos1, direction, itemStack)) {
                 BlockState blockState = world.getBlockState(blockPos);
                 BlockPos blockPos2 = blockState.getBlock() instanceof FluidFillable && ((FluidFillable) blockState.getBlock()).canFillWithFluid(world, blockPos, blockState, fluid) ? blockPos : blockPos1;
                 this.placeFluid(user, world, blockPos2, rayTraceResult);
-                if(world instanceof ServerWorld) this.placeEntity((ServerWorld)world, itemStack, blockPos2);
-                if(user instanceof ServerPlayerEntity) {
-                    Criteria.PLACED_BLOCK.trigger((ServerPlayerEntity)user, blockPos2, itemStack);
+                if (world instanceof ServerWorld) this.placeEntity((ServerWorld) world, itemStack, blockPos2);
+                if (user instanceof ServerPlayerEntity) {
+                    Criteria.PLACED_BLOCK.trigger((ServerPlayerEntity) user, blockPos2, itemStack);
                 }
                 user.incrementStat(Stats.USED.getOrCreateStat(this));
                 return TypedActionResult.success(itemStack);
@@ -76,7 +74,7 @@ public class BettasBucketItem extends BucketItem {
     @Override
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
-        if(hasTooltip && stack.hasNbt()) {
+        if (hasTooltip && stack.hasNbt()) {
             assert stack.getNbt() != null;
             tooltip.add(new TranslatableText(getEntityType().getTranslationKey() + "." + stack.getNbt().getInt("Variant")).formatted(Formatting.GRAY, Formatting.ITALIC));
         }
@@ -84,9 +82,9 @@ public class BettasBucketItem extends BucketItem {
 
     private void placeEntity(ServerWorld world, ItemStack stack, BlockPos pos) {
         Entity entity = this.entityType.get().spawnFromItemStack(world, stack, null, pos, SpawnReason.BUCKET, true, false);
-        if(entity != null) {
-            if(entity instanceof FishEntity) {
-                ((FishEntity)entity).setFromBucket(true);
+        if (entity != null) {
+            if (entity instanceof FishEntity) {
+                ((FishEntity) entity).setFromBucket(true);
             }
         }
     }

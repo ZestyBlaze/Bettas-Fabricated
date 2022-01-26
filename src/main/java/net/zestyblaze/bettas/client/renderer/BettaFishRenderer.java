@@ -22,9 +22,9 @@ public class BettaFishRenderer extends MobEntityRenderer<BettaFishEntity, BettaF
     @Override
     public Identifier getTexture(BettaFishEntity entity) {
         int variant = entity.getVariant();
-        if(TEXTURES[variant] == null) {
+        if (TEXTURES[variant] == null) {
             Identifier loc = new Identifier(Bettas.MODID, "textures/entity/betta/body_" + variant + ".png");
-            if(!MinecraftClient.getInstance().getResourceManager().containsResource(loc)) {
+            if (!MinecraftClient.getInstance().getResourceManager().containsResource(loc)) {
                 Bettas.LOGGER.warn("Found unknown variant" + variant + ", using default");
                 loc = new Identifier(Bettas.MODID, "textures/entity/betta/body_0.png");
             }
@@ -38,7 +38,7 @@ public class BettaFishRenderer extends MobEntityRenderer<BettaFishEntity, BettaF
         super.setupTransforms(entity, matrices, animationProgress, bodyYaw, tickDelta);
         float f = 4.3f * MathHelper.sin(0.6f * animationProgress);
         matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(f));
-        if(!entity.isSubmergedInWater()) {
+        if (!entity.isSubmergedInWater()) {
             matrices.translate(0.2d, 0.1d, 0);
             matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(90.0f));
         }

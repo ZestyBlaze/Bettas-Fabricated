@@ -19,7 +19,7 @@ public class BettaEntityInit {
     public static void registerEntities() {
         FabricDefaultAttributeRegistry.register(BETTA_FISH, BettaFishEntity.createAttributes());
 
-        if(BettasModConfig.get().debugMode) {
+        if (BettasModConfig.get().debugMode) {
             Bettas.LOGGER.info("Bettas: Registry - Entities Registered");
         }
     }

@@ -23,7 +23,7 @@ public class BettaBlocksInit {
         Registry.register(Registry.BLOCK, new Identifier(Bettas.MODID, "moss_ball_block"), MOSS_BALL_BLOCK);
         Registry.register(Registry.BLOCK, new Identifier(Bettas.MODID, "dried_leaves"), DRIED_LEAVES);
 
-        if(BettasModConfig.get().debugMode) {
+        if (BettasModConfig.get().debugMode) {
             Bettas.LOGGER.info("Bettas: Registry - Blocks Registered");
         }
     }
